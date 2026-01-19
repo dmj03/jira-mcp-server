@@ -22,7 +22,7 @@ def jira_create_issue(
     import httpx
     import os
  
-    jira_host = os.environ.get("JIRA_HOST", "https://deepakjohnart.atlassian.net")
+    jira_url = os.environ.get("JIRA_URL", "https://deepakjohnart.atlassian.net")
     jira_email = os.environ.get("JIRA_EMAIL")
     jira_token = os.environ.get("JIRA_API_TOKEN")
  
@@ -39,15 +39,15 @@ def jira_create_issue(
     }
  
     response = httpx.post(
-        f"{jira_host}/rest/api/2/issue",
+        f"{jira_url}/rest/api/2/issue",
         json=payload,
         auth=(jira_email, jira_token),
         headers={"Content-Type": "application/json"}
     )
-
+ 
     if response.status_code == 201:
         data = response.json()
-        return f"Created issue {data['key']}: {jira_host}/browse/{data['key']}"
+        return f"Created issue {data['key']}: {jira_url}/browse/{data['key']}"
     else:
         return f"Error: {response.status_code} - {response.text}"
  
