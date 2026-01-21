@@ -1,4 +1,6 @@
 from fastmcp import FastMCP
+import httpx
+import os
  
 # Create MCP server
 mcp = FastMCP("Jira MCP Server")
@@ -17,10 +19,8 @@ def jira_create_issue(
         summary: Issue title/summary
         description: Issue description
         issue_type: Type of issue (Task, Bug, Story, etc.)
-        project_key: The Jira project key (default: KAN)
+        project_key: The Jira project key (default: ART)
     """
-    import httpx
-    import os
  
     jira_url = os.environ.get("JIRA_URL", "https://deepakjohnart.atlassian.net")
     jira_email = os.environ.get("JIRA_EMAIL")
@@ -51,5 +51,5 @@ def jira_create_issue(
     else:
         return f"Error: {response.status_code} - {response.text}"
  
-# Export for FastMCP Cloud - try http_app method
-app = mcp.http_app()
+if __name__ == "__main__":
+    mcp.run()
