@@ -8,7 +8,7 @@ def jira_create_issue(
     summary: str,
     description: str = "",
     issue_type: str = "Task",
-    project_key: str = "CHAT"
+    project_key: str = "ART"
 ) -> str:
     """
     Create a Jira issue.
